@@ -14,5 +14,15 @@
             "name": "HichemTab",
             "email": "konanhichemsinshi@gmail.com"
         }
-    ]
+    ],
+    "scripts": {
+        "post-install-cmd": [
+            "@php artisan vendor:publish --tag=project-assist-repositories --force",
+            "@php artisan vendor:publish --tag=project-assist-console --force"
+        ],
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=project-assist-repositories --force",
+            "@php artisan vendor:publish --tag=project-assist-console --force"
+        ]
+    }
 }
