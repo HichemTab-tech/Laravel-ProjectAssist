@@ -1,0 +1,16 @@
+{
+    "name": "hichemtab-tech/laravel-project-assist",
+    "autoload": {
+        "psr-4": {
+            "HichemtabTech\\LaravelProjectAssist\\": "src/",
+            "App\\Repositories\\": "src/Repositories/",
+            "App\\Console\\": "src/Console/"
+        }
+    },
+    "authors": [
+        {
+            "name": "HichemTab",
+            "email": "konanhichemsinshi@gmail.com"
+        }
+    ]
+}

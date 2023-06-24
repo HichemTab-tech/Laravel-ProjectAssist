@@ -1,0 +1,8 @@
+<?php
+
+namespace App\Traits\{{subdirectory}};
+
+trait {{className}}
+{
+    // Your trait code here...
+}

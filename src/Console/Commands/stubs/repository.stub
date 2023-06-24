@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Repositories\{{subdirectory}};
+
+use App\Repositories\Repository;
+use Illuminate\Foundation\Application;
+
+class {{className}} extends Repository
+{
+    // Repository implementation
+
+    /**
+     * @param Application $app
+     */
+    public function __construct(Application $app)
+    {
+        parent::__construct($app);
+    }
+}
