@@ -15,12 +15,12 @@ class ProjectAssistServiceProvider extends ServiceProvider
     {
         // Publish the repository files
         $this->publishes([
-            __DIR__.'/src/Repositories' => app_path('Repositories'),
+            __DIR__.'\Repositories' => app_path('Repositories'),
         ], 'laravel-assets');
 
         // Publish the console files
         $this->publishes([
-            __DIR__.'/src/Console' => app_path('Console'),
+            __DIR__.'\Console' => app_path('Console'),
         ], 'laravel-assets');
     }
 
