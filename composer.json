@@ -1,5 +1,7 @@
 {
     "name": "hichemtab-tech/laravel-project-assist",
+    "description": "Laravel-ProjectAssist is a comprehensive toolkit for Laravel developers. It includes custom console commands, service providers, and utility classes that enhance productivity and simplify common tasks in Laravel project development. With thorough documentation and examples, this toolkit streamlines setup, reduces boilerplate code, and improves overall efficiency.",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "HichemtabTech\\LaravelProjectAssist\\": "src/",
