@@ -15,12 +15,21 @@
             "email": "konanhichemsinshi@gmail.com"
         }
     ],
-    "scripts": {
-        "post-autoload-dump": [
-            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi",
-            "@php artisan vendor:publish --tag=project-assist-repositories --force",
-            "@php artisan vendor:publish --tag=project-assist-console --force"
-        ]
+    "extra": {
+        "laravel": {
+            "providers": [
+                "HichemtabTech\\LaravelProjectAssist\\ProjectAssistServiceProvider"
+            ],
+            "commands": [
+                {
+                    "name": "MakeRepository",
+                    "path": "src/Console/Commands/MakeRepository.php"
+                },
+                {
+                    "name": "MakeTrait",
+                    "path": "src/Console/Commands/MakeTrait.php"
+                }
+            ]
+        }
     }
 }
