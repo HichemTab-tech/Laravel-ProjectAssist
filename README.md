@@ -4,7 +4,8 @@
 
 ## Features
 
-Enhanced Console Commands: Empower your command-line interface with a set of custom commands tailored to accelerate your Laravel project workflows. From scaffolding components to automating repetitive tasks, these commands boost your productivity and make development more efficient.
+### Enhanced Console Commands
+Empower your command-line interface with a set of custom commands tailored to accelerate your Laravel project workflows. From scaffolding components to automating repetitive tasks, these commands boost your productivity and make development more efficient.
 
 ### Custom Service Providers
 Discover a range of custom service providers that seamlessly integrate with your Laravel application. These providers extend the functionality of your project, offering additional features and integrations to simplify common development challenges.
