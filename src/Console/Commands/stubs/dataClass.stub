@@ -1,0 +1,30 @@
+<?php /** @noinspection PhpUnused */
+
+namespace App\Data\{{subdirectory}};
+
+class {{class}}
+{
+{{fields}}
+
+    /**
+     * {{class}} constructor.
+     *
+{{constructorDocs}}
+     */
+    public function __construct({{constructorParams}})
+    {
+{{constructorBody}}
+    }
+
+    /**
+     * Create a new instance of the {{class}} builder.
+     *
+     * @return {{class}}Builder The builder instance.
+     */
+    public static function builder(): {{class}}Builder
+    {
+        return new {{class}}Builder();
+    }
+
+{{getters}}
+}

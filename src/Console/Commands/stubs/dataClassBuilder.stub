@@ -1,0 +1,25 @@
+<?php /** @noinspection PhpUnused */
+
+namespace App\Data\{{subdirectory}};
+
+class {{class}}Builder
+{
+{{builderFields}}
+
+    public function __construct()
+    {
+        // Initialize any default values or dependencies here
+    }
+
+{{builderMethods}}
+
+    /**
+     * Build the {{class}} object.
+     *
+     * @return {{class}} The built {{class}} object.
+     */
+    public function build(): {{class}}
+    {
+        return new {{class}}({{builderParams}});
+    }
+}
