@@ -103,7 +103,10 @@ class MakeDataClass extends Command
     {
         $fieldsCode = '';
         foreach ($fields as $field) {
-            $fieldsCode .= "    /**\n    * @var {$field['type']} \${$field['name']}\n    */\n";
+            $fieldsCode .= "    /**\n    * @var {$field['type']}".($field['type'] != 'bool' ? '|null' : '')." \${$field['name']}\n    */\n";
+            if ($field['type'] != 'bool') {
+                $field['type'] = '?'.$field['type'];
+            }
             $fieldsCode .= "    private {$field['type']} \${$field['name']};\n\n";
         }
         $fieldsCode .= "\n\n";
@@ -121,11 +124,11 @@ class MakeDataClass extends Command
             }
             $fieldsCode_ = "    /**\n    * @return {$field['type']}".($field['type'] != 'bool' ? '|null' : '')."\n    */\n";
             $suffix = '';
-            if ($field['type'] != 'bool') {
-                $field['type'] = '?'.$field['type'];
-            }
             if ($field['type'] == 'string') {
                 $suffix = " ?? ''";
+            }
+            if ($field['type'] != 'bool') {
+                $field['type'] = '?'.$field['type'];
             }
             $fieldsCode_ .= "    public function $m".ucfirst($field['name'])."(): {$field['type']}
     {
