@@ -183,7 +183,17 @@ class MakeDataClass extends Command
         $fieldsCode = '';
         foreach ($fields as $field) {
             $fieldsCode .= "    /**\n    * @var {$field['type']} \${$field['name']}\n    */\n";
-            $fieldsCode .= "    private {$field['type']} \${$field['name']};\n";
+            $suffix = "";
+            if ($field['type'] == 'string') {
+                $suffix = " = \"\"";
+            }
+            elseif ($field['type'] == 'bool') {
+                $suffix = " = false";
+            }
+            elseif ($field['type'] == 'int' || $field['type'] == 'float') {
+                $suffix = " = 0";
+            }
+            $fieldsCode .= "    private {$field['type']} \${$field['name']}{$suffix};\n";
         }
 
         return $fieldsCode;
