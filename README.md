@@ -70,6 +70,34 @@ The DataClass Maker will generate a class with the provided fields, along with a
 
 Leverage the power of data classes to organize and streamline your data management and transfer within your application. Simplify your code and improve maintainability by using the DataClass Maker to generate structured data classes with ease.
 
+### Lang file Maker
+This commande generates a lang file with the name you provide in the command, the lang file will be created with many copies for each lang directory (languages supported by your application).
+
+```
+php artisan make:lang validation
+```
+For example, if you have in your lang directory, the following files:
+```
+├── en
+│   └── ...
+├── fr
+│   └── ...
+└── ar
+    └── ...
+```
+After creating the lang file with the command above, you will have the following structure:
+```
+├── en
+│   └── ...
+│   └── validation.php
+├── fr
+│   └── ...
+│   └── validation.php
+└── ar
+│   └── ...
+    └── validation.php
+```
+So this commande will help you to create a lang file in all languages supported by your application, without manually creating a copy of the lang file in each language directory.
 ## License
 
 [MIT](https://github.com/HichemTab-tech/Laravel-ProjectAssist/blob/master/LICENSE)
