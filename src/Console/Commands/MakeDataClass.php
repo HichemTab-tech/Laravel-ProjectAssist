@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection ALL */
 
 namespace App\Console\Commands;
 
@@ -119,10 +119,12 @@ class MakeDataClass extends Command
             if ($field['type'] == 'bool') {
                 $m = 'is';
             }
-            $fieldsCode_ = "    /**\n    * @return {$field['type']}\n    */\n";
+            $fieldsCode_ = "    /**\n    * @return {$field['type']}".($field['type'] != 'bool' ? '|null' : '')."\n    */\n";
             $suffix = '';
+            if ($field['type'] != 'bool') {
+                $field['type'] = '?'.$field['type'];
+            }
             if ($field['type'] == 'string') {
-                $field['type'] = '?string';
                 $suffix = " ?? ''";
             }
             $fieldsCode_ .= "    public function $m".ucfirst($field['name'])."(): {$field['type']}
