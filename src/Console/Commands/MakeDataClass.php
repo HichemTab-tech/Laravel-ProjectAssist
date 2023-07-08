@@ -139,15 +139,15 @@ class MakeDataClass extends Command
         $constructorDocs = '';
         foreach ($fields as $field) {
             $suffix = '';
-            if ($field['type'] == 'string') {
+            if ($field['type'] != 'bool') {
                 $suffix = "|null";
             }
             $constructorDocs .= "    * @param {$field['type']}{$suffix} \${$field['name']}\n";
         }
         $constructorParams = [];
         foreach ($fields as $field) {
-            if ($field['type'] == 'string') {
-                $field['type'] = '?string';
+            if ($field['type'] != 'bool') {
+                $field['type'] = '?'.$field['type'];
             }
             $constructorParams[] = "{$field['type']} \${$field['name']}";
         }
@@ -182,7 +182,7 @@ class MakeDataClass extends Command
     {
         $fieldsCode = '';
         foreach ($fields as $field) {
-            $fieldsCode .= "    /**\n    * @var {$field['type']} \${$field['name']}\n    */\n";
+            $fieldsCode .= "    /**\n    * @var {$field['type']}".($field['type'] != 'bool' ? '|null' : '')." \${$field['name']}\n    */\n";
             $suffix = "";
             if ($field['type'] == 'string') {
                 $suffix = " = \"\"";
@@ -192,6 +192,9 @@ class MakeDataClass extends Command
             }
             elseif ($field['type'] == 'int' || $field['type'] == 'float') {
                 $suffix = " = 0";
+            }
+            if ($field['type'] != 'bool') {
+                $field['type'] = '?'.$field['type'];
             }
             $fieldsCode .= "    private {$field['type']} \${$field['name']}{$suffix};\n";
         }
@@ -210,7 +213,10 @@ class MakeDataClass extends Command
         foreach ($fields as $field) {
             $fieldName = $field['name'];
             $fieldType = $field['type'];
-            $methodsCode .= "    /**\n    * @param {$field['type']} \${$field['name']}\n    * @return self\n    */";
+            $methodsCode .= "    /**\n    * @param {$field['type']}".($field['type'] != 'bool' ? '|null' : '')." \${$field['name']}\n    * @return self\n    */";
+            if ($fieldType != 'bool') {
+                $fieldType = '?'.$fieldType;
+            }
             $methodsCode .= "
     public function with".ucfirst($fieldName)."($fieldType \$$fieldName): self
     {
