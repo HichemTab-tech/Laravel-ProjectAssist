@@ -120,9 +120,14 @@ class MakeDataClass extends Command
                 $m = 'is';
             }
             $fieldsCode_ = "    /**\n    * @return {$field['type']}\n    */\n";
+            $suffix = '';
+            if ($field['type'] == 'string') {
+                $field['type'] = '?string';
+                $suffix = " ?? ''";
+            }
             $fieldsCode_ .= "    public function $m".ucfirst($field['name'])."(): {$field['type']}
     {
-        return \$this->{$field['name']};
+        return \$this->{$field['name']}{$suffix};
     }";
             $fieldsCode[] = $fieldsCode_;
         }
@@ -133,10 +138,17 @@ class MakeDataClass extends Command
     {
         $constructorDocs = '';
         foreach ($fields as $field) {
-            $constructorDocs .= "    * @param {$field['type']} \${$field['name']}\n";
+            $suffix = '';
+            if ($field['type'] == 'string') {
+                $suffix = "|null";
+            }
+            $constructorDocs .= "    * @param {$field['type']}{$suffix} \${$field['name']}\n";
         }
         $constructorParams = [];
         foreach ($fields as $field) {
+            if ($field['type'] == 'string') {
+                $field['type'] = '?string';
+            }
             $constructorParams[] = "{$field['type']} \${$field['name']}";
         }
         $constructorParams = implode(", ", $constructorParams);
