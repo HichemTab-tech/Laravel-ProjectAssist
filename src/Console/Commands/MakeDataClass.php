@@ -55,7 +55,13 @@ class MakeDataClass extends Command
         else{
             $fields = substr($fields, 1);
             $fields = explode(",", $fields);
-            $fields = array_map(function ($field){return str_replace(" ", ",", trim($field));}, $fields);
+            $fields = array_map(function ($field){
+                $field = trim($field);
+                if (!Str::contains($field, " ")) {
+                    $field = 'string '.$field;
+                }
+                return str_replace(" ", ",", $field);
+            }, $fields);
         }
 
         $fieldsNamesAndTypes = [];
