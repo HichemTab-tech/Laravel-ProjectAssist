@@ -4,7 +4,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "HichemtabTech\\LaravelProjectAssist\\": "src/"
+            "HichemtabTech\\LaravelProjectAssist\\": "src/",
         }
     },
     "authors": [
@@ -19,5 +19,12 @@
                 "HichemtabTech\\LaravelProjectAssist\\ProjectAssistServiceProvider"
             ]
         }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi",
+            "@php artisan vendor:publish --tag={hichemtab-tech-laravel-project-assist-repositories}--force"
+        ]
     }
 }

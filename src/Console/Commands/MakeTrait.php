@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace HichemtabTech\LaravelProjectAssist\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;

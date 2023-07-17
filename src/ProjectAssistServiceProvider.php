@@ -18,12 +18,12 @@ class ProjectAssistServiceProvider extends ServiceProvider
         // Publish the repository files
         $this->publishes([
             __DIR__.'\Repositories' => app_path('Repositories'),
-        ], 'laravel-assets');
+        ], 'hichemtab-tech-laravel-project-assist-repositories');
 
         // Publish the console files
         $this->publishes([
             __DIR__.'\Console' => app_path('Console'),
-        ], 'laravel-assets');
+        ], 'hichemtab-tech-laravel-project-assist-commands');
     }
 
     /**

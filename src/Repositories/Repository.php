@@ -1,5 +1,7 @@
 <?php
 
+namespace HichemtabTech\LaravelProjectAssist\Repositories;
+
 use Illuminate\Foundation\Application;
 
 class Repository
