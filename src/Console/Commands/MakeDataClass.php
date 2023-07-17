@@ -1,6 +1,5 @@
 <?php /** @noinspection ALL */
 
-namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
