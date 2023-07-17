@@ -13,7 +13,7 @@ class MakeDataClass extends Command
      *
      * @var string
      */
-    protected $signature = 'make:data-class {name} {--serialize=null}';
+    protected $signature = 'make:data-class {name} {--serializable=null} {--hidden=null}';
 
     /**
      * The console command description.
@@ -28,12 +28,17 @@ class MakeDataClass extends Command
     public function handle(): void
     {
         $name = $this->argument('name');
-        $serialize = $this->option('serialize') !== 'null';
+        $serialize = $this->option('serializable') !== 'null';
+        if ($this->option('hidden') !== 'null') {
+            $hidden = explode(',', $this->option('hidden'));
+        } else {
+            $hidden = [];
+        }
         $fieldsNamesAndTypes = $this->collectFields();
         $className = Str::studly(class_basename($name));
         $subdirectory = rtrim(dirname($name), '/\\');
 
-        $this->generateDataClass($className, $subdirectory, $fieldsNamesAndTypes, $serialize);
+        $this->generateDataClass($className, $subdirectory, $fieldsNamesAndTypes, $serialize, $hidden);
         $this->generateDataClassBuilder($className, $subdirectory, $fieldsNamesAndTypes);
 
         $this->info("Data class and builder generated successfully.");
@@ -80,7 +85,7 @@ class MakeDataClass extends Command
         return $fieldsNamesAndTypes;
     }
 
-    protected function generateDataClass(string $className, string $subdirectory, array $fields, bool $serialize): void
+    protected function generateDataClass(string $className, string $subdirectory, array $fields, bool $serialize, array $hidden): void
     {
         $template = File::get(app_path('Console/Commands/stubs/dataClass.stub'));
         $constructor = $this->generateConstructorBuilder($fields);
@@ -99,6 +104,7 @@ class MakeDataClass extends Command
     {
         return [";
             foreach ($fields as $field) {
+                if (in_array($field['name'], $hidden)) continue;
                 $serializableGetter .= "\n            '".$field['name']."' => \$this->".$field['name'].",";
             }
             $serializableGetter .= "\n        ];\n    }";
