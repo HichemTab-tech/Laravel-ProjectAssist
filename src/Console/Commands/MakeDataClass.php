@@ -13,7 +13,7 @@ class MakeDataClass extends Command
      *
      * @var string
      */
-    protected $signature = 'make:data-class {name}';
+    protected $signature = 'make:data-class {name} {--serialize=null}';
 
     /**
      * The console command description.
@@ -28,11 +28,12 @@ class MakeDataClass extends Command
     public function handle(): void
     {
         $name = $this->argument('name');
+        $serialize = $this->option('serialize') !== 'null';
         $fieldsNamesAndTypes = $this->collectFields();
         $className = Str::studly(class_basename($name));
         $subdirectory = rtrim(dirname($name), '/\\');
 
-        $this->generateDataClass($className, $subdirectory, $fieldsNamesAndTypes);
+        $this->generateDataClass($className, $subdirectory, $fieldsNamesAndTypes, $serialize);
         $this->generateDataClassBuilder($className, $subdirectory, $fieldsNamesAndTypes);
 
         $this->info("Data class and builder generated successfully.");
@@ -79,12 +80,34 @@ class MakeDataClass extends Command
         return $fieldsNamesAndTypes;
     }
 
-    protected function generateDataClass(string $className, string $subdirectory, array $fields): void
+    protected function generateDataClass(string $className, string $subdirectory, array $fields, bool $serialize): void
     {
         $template = File::get(app_path('Console/Commands/stubs/dataClass.stub'));
         $constructor = $this->generateConstructorBuilder($fields);
+        $uses = [];
+        if ($serialize) {
+            $uses[] = "JsonSerializable";
+            $serializable = " implements JsonSerializable";
+            $serializableGetter = "\n\n    /**
+     * Specify data which should be serialized to JSON
+     * @link https://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return array data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4
+     */
+    public function jsonSerialize(): array
+    {
+        return [";
+            foreach ($fields as $field) {
+                $serializableGetter .= "\n            '".$field['name']."' => \$this->".$field['name'].",";
+            }
+            $serializableGetter .= "\n        ];\n    }";
+        }
         $replacements = [
+            '{{use}}' => $this->getUses($uses),
             '{{class}}' => $className,
+            '{{serializable}}' => $serializable??"",
+            '{{serializableGetter}}' => $serializableGetter??"",
             '{{fields}}' => $this->generateFields($fields),
             '{{getters}}' => $this->generateGetters($fields),
             '\{{subdirectory}}' => ($subdirectory != "." ? "\\".$subdirectory : ""),
@@ -230,5 +253,16 @@ class MakeDataClass extends Command
     }\n";
         }
         return $methodsCode;
+    }
+
+    private function getUses($uses) {
+        $use = "";
+        foreach ($uses as $usePath) {
+            $use .= "use $usePath;\n";
+        }
+        if ($use != "") {
+            $use = "\n\n".$use;
+        }
+        return $use;
     }
 }
