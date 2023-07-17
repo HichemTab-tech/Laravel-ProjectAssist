@@ -98,6 +98,13 @@ After creating the lang file with the command above, you will have the following
     └── validation.php
 ```
 So this commande will help you to create a lang file in all languages supported by your application, without manually creating a copy of the lang file in each language directory.
+
+### Customization
+If you want to customize those command files, you can publish them using the following command:
+```Bash
+php artisan vendor:publish --provider=HichemtabTech\LaravelProjectAssist\ProjectAssistServiceProvider
+```
+
 ## License
 
 [MIT](https://github.com/HichemTab-tech/Laravel-ProjectAssist/blob/master/LICENSE)
