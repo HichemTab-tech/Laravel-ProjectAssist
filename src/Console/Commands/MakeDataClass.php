@@ -1,6 +1,6 @@
 <?php /** @noinspection ALL */
 
-namespace HichemtabTech\LaravelProjectAssist\Console\Commands;
+namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;

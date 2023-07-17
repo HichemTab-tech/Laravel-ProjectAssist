@@ -19,12 +19,5 @@
                 "HichemtabTech\\LaravelProjectAssist\\ProjectAssistServiceProvider"
             ]
         }
-    },
-    "scripts": {
-        "post-autoload-dump": [
-            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi",
-            "@php artisan vendor:publish --tag={hichemtab-tech-laravel-project-assist-repositories}--force"
-        ]
     }
 }
