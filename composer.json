@@ -19,24 +19,6 @@
         "laravel": {
             "providers": [
                 "HichemtabTech\\LaravelProjectAssist\\ProjectAssistServiceProvider"
-            ],
-            "commands": [
-                {
-                    "name": "MakeRepository",
-                    "path": "src/Console/Commands/MakeRepository.php"
-                },
-                {
-                    "name": "MakeTrait",
-                    "path": "src/Console/Commands/MakeTrait.php"
-                },
-                {
-                    "name": "MakeDataClass",
-                    "path": "src/Console/Commands/MakeDataClass.php"
-                },
-                {
-                    "name": "MakeLangFile",
-                    "path": "src/Console/Commands/MakeLangFile.php"
-                }
             ]
         }
     }
