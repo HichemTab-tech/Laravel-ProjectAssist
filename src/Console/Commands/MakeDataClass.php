@@ -28,6 +28,7 @@ class MakeDataClass extends Command
     public function handle(): void
     {
         $name = $this->argument('name');
+        print_r("x");
         $fieldsNamesAndTypes = $this->collectFields();
         $className = Str::studly(class_basename($name));
         $subdirectory = rtrim(dirname($name), '/\\');
