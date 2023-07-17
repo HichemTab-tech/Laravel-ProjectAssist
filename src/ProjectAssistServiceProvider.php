@@ -15,11 +15,6 @@ class ProjectAssistServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Publish the repository files
-        $this->publishes([
-            __DIR__.'\Repositories' => app_path('Repositories'),
-        ], 'hichemtab-tech-laravel-project-assist-repositories');
-
         // Publish the console files
         $this->publishes([
             __DIR__.'\Console' => app_path('Console'),
