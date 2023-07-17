@@ -1,7 +1,5 @@
 <?php
 
-namespace App\Repositories;
-
 use Illuminate\Foundation\Application;
 
 class Repository
