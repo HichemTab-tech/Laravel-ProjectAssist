@@ -13,7 +13,7 @@ class MakeLangFile extends Command
      *
      * @var string
      */
-    protected $signature = 'make:lang {name=null}';
+    protected $signature = 'make:lang {name=null} {--langs=null}';
 
     /**
      * The console command description.
@@ -33,11 +33,16 @@ class MakeLangFile extends Command
         if ($name === 'null') {
             $name = $this->ask("file name?");
         }
+        if ($this->option('langs') !== 'null') {
+            $langs = explode(',', $this->option('langs'));
+        } else {
+            $langs = ["fr", "en"];
+        }
         $scriptName = Str::studly(class_basename($name));
         $scriptName = lcfirst($scriptName);
         $subdirectory = rtrim(dirname($name), '/\\');
 
-        $contents = $this->generatesLanguageContents();
+        $contents = $this->generatesLanguageContents($langs);
         $dirs = array_keys($contents);
         foreach ($dirs as $dir) {
             $replacements = [
@@ -56,9 +61,17 @@ class MakeLangFile extends Command
         $this->info("Lang files generated successfully.");
     }
 
-    private function generatesLanguageContents() :array
+    private function generatesLanguageContents(array $langs) :array
     {
         $alpha = 'abcd';
+        File::ensureDirectoryExists(lang_path());
+        $dirs = File::directories(lang_path());
+        foreach ($langs as $lang_) {
+            $lang = strtolower($lang_);
+            if (!in_array($lang, $dirs)) {
+                File::ensureDirectoryExists(lang_path($lang));
+            }
+        }
         $dirs = File::directories(lang_path());
         $dirs = array_map(function ($d) {return basename($d);}, $dirs);
         $dirs = array_filter($dirs, function ($d) {return !in_array($d, ['.', '..']);});
