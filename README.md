@@ -99,6 +99,49 @@ After creating the lang file with the command above, you will have the following
 ```
 So this commande will help you to create a lang file in all languages supported by your application, without manually creating a copy of the lang file in each language directory.
 
+### .env.example generator
+
+When you're in development, you may change the `.env` file a lot,
+and in each release you may need to create a `.env.example` to know how to deal with your new environment later,
+but manually creating it everytime is hard and takes some time, but using this commande you will automatically generate the coresponding `.env.example` :
+
+```bach
+php artisan env:example
+```
+
+The commande will generate the `.env.example` file with all the keys and values of the `.env` file, hidding the fields that have sensitive data.
+In .env you must mark the fields of sensitive data with the `#env_hide` suffix, for example:
+
+```dotenv
+APP_NAME="My App"
+APP_ENV=local
+APP_KEY=base64:HnA7smlksdfhqfjlskdjp6bQscsfsdfsgtqsd1oM=#env_hide
+APP_DEBUG=true
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1#env_hide
+DB_PORT=3306#env_hide
+DB_DATABASE=laraval_project#env_hide
+DB_USERNAME=root#env_hide
+DB_PASSWORD=12345678#env_hide
+```
+
+The `.env.example` file will be generated as follows:
+
+```dotenv
+APP_NAME="My App"
+APP_ENV=local
+APP_KEY=*****#env_hide
+APP_DEBUG=true
+
+DB_CONNECTION=mysql
+DB_HOST=*****#env_hide
+DB_PORT=*****#env_hide
+DB_DATABASE=*****#env_hide
+DB_USERNAME=*****#env_hide
+DB_PASSWORD=*****#env_hide
+```
+
 ### Customization
 If you want to customize those command files, you can publish them using the following command:
 ```Bash
