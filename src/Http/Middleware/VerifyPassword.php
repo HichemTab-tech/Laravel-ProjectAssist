@@ -1,6 +1,6 @@
 <?php
 
-namespace HichemtabTech\LaravelProjectAssist\Http\Middleware;
+namespace App\Http\Middleware;
 
 use Closure;
 use Exception;
