@@ -10,10 +10,27 @@ Empower your command-line interface with a set of custom commands tailored to ac
 ### Custom Service Providers
 Discover a range of custom service providers that seamlessly integrate with your Laravel application. These providers extend the functionality of your project, offering additional features and integrations to simplify common development challenges.
 
+### Useful Middlewares
+Explore a collection of useful middlewares that provide additional functionality to your Laravel application. These middlewares can be used to enhance security, improve performance, and optimize your project.
+
 ### Utility Classes
 Access a suite of utility classes that provide handy methods and functionalities for various aspects of Laravel development. From date handling and form processing to text manipulation and logging, these classes save you time and effort by encapsulating common functionalities into reusable components.
 ##
 With "Laravel-ProjectAssist" at your disposal, you can expedite your Laravel project setup, reduce boilerplate code, and focus on building robust and scalable applications. Whether you are starting a new project or looking to optimize your existing Laravel application, "Laravel-ProjectAssist" provides the essential tools and resources to streamline your development workflow and improve overall productivity.
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Makers](#makers)
+    - [Repository Maker](#repository-maker)
+    - [Trait Maker](#trait-maker)
+    - [DataClass Maker](#dataclass-maker)
+    - [Lang file Maker](#lang-file-maker)
+    - [.env.example generator](#envexample-generator)
+  - [Useful Middlewares](#useful-middlewares)
+    - [VerifyPassword](#verifypassword)
+- [License](#license)
 
 ## Installation
 
@@ -23,7 +40,11 @@ composer require hichemtab-tech/laravel-project-assist
 
 ## Usage
 
-### Repository maker
+### Makers
+
+The following commands are provided by this library to facilitate the creation of various components within your Laravel application.
+
+#### Repository maker
 
 The Repository Maker is a feature of this library that facilitates the creation of repository classes using the command :
 ```
@@ -37,7 +58,7 @@ By utilizing the **UsersRepository** class, you can conveniently centralize and 
 
 Feel free to leverage this feature to create dedicated repository classes for various entities in your application, ensuring clear separation of concerns and efficient management of related methods and data.
 
-### Trait Maker
+#### Trait Maker
 
 The Trait Maker is another useful feature provided by this library. It simplifies the creation of traits that can be used to encapsulate reusable functionality across multiple classes.
 
@@ -51,7 +72,7 @@ Traits are a powerful way to extract common methods and behavior into separate r
 
 Make use of the Trait Maker to create traits for specific functionalities or behaviors that can be shared across various classes within your application. Enjoy the benefits of code reusability and maintainability that traits provide.
 
-### DataClass Maker
+#### DataClass Maker
 The DataClass Maker is a convenient tool provided by this library to facilitate the creation of data classes. These data classes serve as containers for organizing and passing data between different components or parts of your application.
 
 To create a data class, you can utilize the command:
@@ -60,17 +81,17 @@ php artisan make:data-class TeamMember
 ```
 This command will prompt you to add fields to the data class. You have two options for adding fields:
 
-#### Adding fields one by one
+#### — Adding fields one by one
 You can add fields individually by specifying their type and name using the following structure: `field type, field name`. For example, you can input `string,id` to add a field of type string with the name 'id'.
 
-#### Adding fields in one line
+#### — Adding fields in one line
 Alternatively, you can add multiple fields at once by starting with a forward slash `/` followed by the field definitions. For example, you can input `/string id, bool good, int number` to add fields of types string, boolean, and integer with the respective names.
 
 The DataClass Maker will generate a class with the provided fields, along with a builder and getter methods for easy access and manipulation of the data. This enables you to conveniently pass all the required project data in a single object, such as ProjectData, to be easily utilized within the component.
 
 Leverage the power of data classes to organize and streamline your data management and transfer within your application. Simplify your code and improve maintainability by using the DataClass Maker to generate structured data classes with ease.
 
-### Lang file Maker
+#### Lang file Maker
 This commande generates a lang file with the name you provide in the command, the lang file will be created with many copies for each lang directory (languages supported by your application).
 
 ```
@@ -99,7 +120,7 @@ After creating the lang file with the command above, you will have the following
 ```
 So this commande will help you to create a lang file in all languages supported by your application, without manually creating a copy of the lang file in each language directory.
 
-### .env.example generator
+#### .env.example generator
 
 When you're in development, you may change the `.env` file a lot,
 and in each release you may need to create a `.env.example` to know how to deal with your new environment later,
@@ -142,10 +163,42 @@ DB_USERNAME=*****#env_hide
 DB_PASSWORD=*****#env_hide
 ```
 
-### Customization
+#### Customization
 If you want to customize those command files, you can publish them using the following command:
 ```Bash
-php artisan vendor:publish --provider=HichemtabTech\LaravelProjectAssist\ProjectAssistServiceProvider
+php artisan vendor:publish --provider=HichemtabTech\LaravelProjectAssist\ProjectAssistServiceProvider --tag=console
+```
+
+### Middlewares
+
+Here is a list of middlewares provided by this library:
+
+#### VerifyPassword
+
+This middleware is used to verify the current password of the authenticated user before making an action you have to simply add a params to the reqyest named `currentPassword`.
+
+Add this middleware to Kernel.php file:
+```php
+protected $routeMiddleware = [
+    // ...
+    'verifyPassword' => \App\Http\Middleware\VerifyPassword::class,
+];
+```
+
+Then use it in your routes:
+
+```php
+Route::post('/edit-profile', function (Request $request) {
+    // The current password is valid...
+    // continue the profile update
+})->middleware('verifyPassword');
+```
+
+#### Customization
+
+If you want to customize those middlewares, you can publish them using the following command:
+```Bash
+php artisan vendor:publish --provider=HichemtabTech\LaravelProjectAssist\ProjectAssistServiceProvider --tag=middleware
 ```
 
 ## License

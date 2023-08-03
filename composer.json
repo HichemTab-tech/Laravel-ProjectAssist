@@ -19,5 +19,8 @@
                 "HichemtabTech\\LaravelProjectAssist\\ProjectAssistServiceProvider"
             ]
         }
+    },
+    "require": {
+        "laravel/framework": "^10.17"
     }
 }

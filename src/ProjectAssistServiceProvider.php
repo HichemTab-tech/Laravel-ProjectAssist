@@ -18,7 +18,10 @@ class ProjectAssistServiceProvider extends ServiceProvider
         // Publish the console files
         $this->publishes([
             __DIR__.'\Console' => app_path('Console'),
-        ], 'hichemtab-tech-laravel-project-assist-commands');
+        ], 'console');
+        $this->publishes([
+            __DIR__.'\Http\Middleware\VerifyPassword.php' => app_path('Http\Middleware\VerifyPassword.php'),
+        ], 'middleware');
     }
 
     /**
