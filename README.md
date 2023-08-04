@@ -28,8 +28,6 @@ With "Laravel-ProjectAssist" at your disposal, you can expedite your Laravel pro
     - [DataClass Maker](#dataclass-maker)
     - [Lang file Maker](#lang-file-maker)
     - [.env.example generator](#envexample-generator)
-  - [Useful Middlewares](#useful-middlewares)
-    - [VerifyPassword](#verifypassword)
 - [License](#license)
 
 ## Installation
@@ -167,38 +165,6 @@ DB_PASSWORD=*****#env_hide
 If you want to customize those command files, you can publish them using the following command:
 ```Bash
 php artisan vendor:publish --provider=HichemtabTech\LaravelProjectAssist\ProjectAssistServiceProvider --tag=console
-```
-
-### Middlewares
-
-Here is a list of middlewares provided by this library:
-
-#### VerifyPassword
-
-This middleware is used to verify the current password of the authenticated user before making an action you have to simply add a params to the reqyest named `currentPassword`.
-
-Add this middleware to Kernel.php file:
-```php
-protected $routeMiddleware = [
-    // ...
-    'verifyPassword' => \App\Http\Middleware\VerifyPassword::class,
-];
-```
-
-Then use it in your routes:
-
-```php
-Route::post('/edit-profile', function (Request $request) {
-    // The current password is valid...
-    // continue the profile update
-})->middleware('verifyPassword');
-```
-
-#### Customization
-
-If you want to customize those middlewares, you can publish them using the following command:
-```Bash
-php artisan vendor:publish --provider=HichemtabTech\LaravelProjectAssist\ProjectAssistServiceProvider --tag=middleware
 ```
 
 ## License

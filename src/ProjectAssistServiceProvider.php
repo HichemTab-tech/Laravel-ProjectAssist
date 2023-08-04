@@ -19,9 +19,6 @@ class ProjectAssistServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'\Console' => app_path('Console'),
         ], 'console');
-        $this->publishes([
-            __DIR__.'\Http\Middleware\VerifyPassword.php' => app_path('Http\Middleware\VerifyPassword.php'),
-        ], 'middleware');
     }
 
     /**
