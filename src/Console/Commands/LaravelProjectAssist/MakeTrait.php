@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\LaravelProjectAssist;
 
 use Illuminate\Console\Command;
-use Illuminate\Contracts\Filesystem\FileNotFoundException;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\File;
-use Str;
+use Illuminate\Support\Str;
 use Symfony\Component\Console\Command\Command as CommandAlias;
 
 /**
@@ -40,7 +38,7 @@ class MakeTrait extends Command
         $traitName = str_replace("TraitTrait", "Trait", $traitName);
         $traitSubdirectory = rtrim(dirname($name), '/\\');
 
-        $traitStub = File::get(app_path('Console/Commands/stubs/trait.stub'));
+        $traitStub = File::get(app_path('Console/Commands/LaravelProjectAssist/stubs/trait.stub'));
 
         $traitStub = str_replace('{{className}}', $traitName, $traitStub);
         $traitStub = str_replace('\{{subdirectory}}', ($traitSubdirectory != "." ? "\\".$traitSubdirectory : ""), $traitStub);

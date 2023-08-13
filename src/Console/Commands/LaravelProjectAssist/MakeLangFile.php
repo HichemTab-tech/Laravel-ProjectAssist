@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\LaravelProjectAssist;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
@@ -48,7 +48,7 @@ class MakeLangFile extends Command
             $replacements = [
                 '{{CONTENT}}' => $contents[$dir],
             ];
-            $template = File::get(app_path('Console/Commands/stubs/lang.stub'));
+            $template = File::get(app_path('Console/Commands/LaravelProjectAssist/stubs/lang.stub'));
             $generatedClass = str_replace(array_keys($replacements), array_values($replacements), $template);
 
             $classPath = lang_path($dir.'/'.$subdirectory.'/'.$scriptName . '.php');

@@ -1,13 +1,8 @@
 <?php
 
-namespace HichemtabTech\LaravelProjectAssist\Console\Commands;
+namespace App\Console\Commands\LaravelProjectAssist;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
-use function App\Console\Commands\app_path;
-use function App\Console\Commands\class_basename;
-use function App\Console\Commands\lang_path;
 
 class GenerateEnvExample extends Command
 {

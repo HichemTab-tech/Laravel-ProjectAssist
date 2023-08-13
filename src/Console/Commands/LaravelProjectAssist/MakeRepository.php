@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\LaravelProjectAssist;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
-use Str;
+use Illuminate\Support\Str;
 use Symfony\Component\Console\Command\Command as CommandAlias;
 
 class MakeRepository extends Command
@@ -35,7 +35,7 @@ class MakeRepository extends Command
         $repositoryClassName = str_replace("RepositoryRepository", "Repository", $repositoryClassName);
         $repositorySubdirectory = rtrim(dirname($name), '/\\');
 
-        $repositoryStub = File::get(app_path('Console/Commands/stubs/repository.stub'));
+        $repositoryStub = File::get(app_path('Console/Commands/LaravelProjectAssist/stubs/repository.stub'));
 
 
 

@@ -1,6 +1,6 @@
 <?php /** @noinspection ALL */
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\LaravelProjectAssist;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
@@ -87,7 +87,7 @@ class MakeDataClass extends Command
 
     protected function generateDataClass(string $className, string $subdirectory, array $fields, bool $serialize, array $hidden): void
     {
-        $template = File::get(app_path('Console/Commands/stubs/dataClass.stub'));
+        $template = File::get(app_path('Console/Commands/LaravelProjectAssist/stubs/dataClass.stub'));
         $constructor = $this->generateConstructorBuilder($fields);
         $uses = [];
         if ($serialize) {
@@ -195,7 +195,7 @@ class MakeDataClass extends Command
 
     protected function generateDataClassBuilder(string $className, string $subdirectory, array $fields): void
     {
-        $template = File::get(app_path('Console/Commands/stubs/dataClassBuilder.stub'));
+        $template = File::get(app_path('Console/Commands/LaravelProjectAssist/stubs/dataClassBuilder.stub'));
         $replacements = [
             '{{class}}' => $className,
             '{{builderFields}}' => $this->generateBuilderFields($fields),
