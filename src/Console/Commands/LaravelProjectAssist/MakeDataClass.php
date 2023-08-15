@@ -34,7 +34,7 @@ class MakeDataClass extends Command
         } else {
             $hidden = [];
         }
-        $fieldsNamesAndTypes = $this->collectFields();
+        $fieldsNamesAndTypes = $this->collectFields($hidden);
         $className = Str::studly(class_basename($name));
         $subdirectory = rtrim(dirname($name), '/\\');
 
@@ -44,13 +44,17 @@ class MakeDataClass extends Command
         $this->info("Data class and builder generated successfully.");
     }
 
-    protected function collectFields(): array
+    protected function collectFields(&$hidden): array
     {
         $fields = [];
         do {
             $field = $this->ask("Add field (e.g., string,id)?");
             $fields[] = $field;
-            if (Str::startsWith($field, "/")) {
+            if ($field == "/auto") {
+                $fields = array_merge($fields, ["id", 'hashedId', "creationDate"]);
+                $hidden[] = "id";
+            }
+            elseif (Str::startsWith($field, "/")) {
                 $fields = $field;
                 break;
             }
@@ -63,17 +67,19 @@ class MakeDataClass extends Command
             $fields = explode(",", $fields);
             $fields = array_map(function ($field){
                 $field = trim($field);
-                if (!Str::contains($field, " ")) {
-                    $field = 'string '.$field;
-                }
                 return str_replace(" ", ",", $field);
             }, $fields);
         }
 
+        $fields = array_values(array_unique($fields));
+
         $fieldsNamesAndTypes = [];
         foreach ($fields as $field) {
             $fieldData = explode(",", $field);
-            if (count($fieldData) < 2) {
+            if (count($fieldData) == 1) {
+                $fieldData = [$this->getAutoType($field), $fieldData[0]];
+            }
+            elseif (count($fieldData) != 2) {
                 continue;
             }
             $fieldsNamesAndTypes[] = [
@@ -90,6 +96,11 @@ class MakeDataClass extends Command
         $template = File::get(app_path('Console/Commands/LaravelProjectAssist/stubs/dataClass.stub'));
         $constructor = $this->generateConstructorBuilder($fields);
         $uses = [];
+        if (count(array_filter($fields, function ($value) {
+                return $value['type'] == "DateTime";
+            })) != 0) {
+            $uses[] = "DateTime";
+        }
         if ($serialize) {
             $uses[] = "JsonSerializable";
             $serializable = " implements JsonSerializable";
@@ -103,6 +114,7 @@ class MakeDataClass extends Command
     public function jsonSerialize(): array
     {
         return [";
+            $hidden = array_values(array_unique($hidden));
             foreach ($fields as $field) {
                 if (in_array($field['name'], $hidden)) continue;
                 $serializableGetter .= "\n            '".$field['name']."' => \$this->".$field['name'].",";
@@ -270,5 +282,16 @@ class MakeDataClass extends Command
             $use = "\n\n".$use;
         }
         return $use;
+    }
+
+    private function getAutoType($field): string
+    {
+        if (Str::contains($field['name'], 'date', true)) {
+            return 'DateTime';
+        }
+        elseif (Str::contains($field['name'], 'number', true)) {
+            return 'int';
+        }
+        return "string";
     }
 }
