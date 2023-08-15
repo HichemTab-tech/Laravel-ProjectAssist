@@ -51,6 +51,7 @@ class MakeDataClass extends Command
             $field = $this->ask("Add field (e.g., string,id)?");
             $fields[] = $field;
             if ($field == "/auto") {
+                array_pop($fields);
                 $fields = array_merge($fields, ["id", 'hashedId', "creationDate"]);
                 $hidden[] = "id";
             }
