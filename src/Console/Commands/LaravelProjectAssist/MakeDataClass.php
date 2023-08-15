@@ -286,10 +286,10 @@ class MakeDataClass extends Command
 
     private function getAutoType($field): string
     {
-        if (Str::contains($field['name'], 'date', true)) {
+        if (Str::contains($field, 'date', true)) {
             return 'DateTime';
         }
-        elseif (Str::contains($field['name'], 'number', true)) {
+        elseif (Str::contains($field, 'number', true)) {
             return 'int';
         }
         return "string";
