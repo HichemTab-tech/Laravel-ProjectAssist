@@ -1,0 +1,16 @@
+<?php
+
+namespace App\Enums\{{subdirectory}};
+
+use HichemtabTech\LaravelProjectAssist\DataClassLikeEnumValueOnly;
+
+class {{class}} extends DataClassLikeEnumValueOnly
+{
+{{fields}}
+
+    public function ALL(): array
+    {
+        return [{{values}}
+        ];
+    }
+}
