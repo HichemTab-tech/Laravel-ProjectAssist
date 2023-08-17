@@ -8,7 +8,7 @@ class {{class}} extends DataClassLikeEnumValueOnly
 {
 {{fields}}
 
-    public function ALL(): array
+    public static function ALL(): array
     {
         return [{{values}}
         ];

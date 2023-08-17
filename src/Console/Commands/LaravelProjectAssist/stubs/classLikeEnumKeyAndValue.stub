@@ -7,28 +7,28 @@ use HichemtabTech\LaravelProjectAssist\DataClassLikeEnumKeyAndValue;
 class {{class}} extends DataClassLikeEnumKeyAndValue
 {{{fields}}
 
-    public function ALL(): array
+    public static function ALL(): array
     {
         return [{{values}}
         ];
     }
 
-    public function LABELS(): array
+    public static function LABELS(): array
     {
         return array_keys($this->ALL());
     }
 
-    public function VALUES(): array
+    public static function VALUES(): array
     {
         return array_values($this->ALL());
     }
     
-    public function getLabelByValue($value): ?string
+    public static function getLabelByValue($value): ?string
     {
         return array_search($value, $this->ALL()) OR null;
     }
     
-    public function getValueByLabel($label): ?int
+    public static function getValueByLabel($label): ?int
     {
         return $this->ALL()[$label]??null;
     }
